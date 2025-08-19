@@ -1,3 +1,3 @@
-# Agent
+# Mira
 
-### (project in development)
+### A state-of-the-art productivity AI assistant (in development)

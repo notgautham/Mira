@@ -1,0 +1,86 @@
+# 🚀 Phase Roadmap for Productivity Assistant
+
+## **Phase 0 – Scaffolding & Setup**
+
+* GitHub repo structure
+* CI/CD (GitHub Actions) for automated builds
+* Base SQLite + Parquet storage
+* Local server for agent communication (Python FastAPI or Flask)
+* Minimal logging (active window, timestamps)
+  ✅ Output: a working skeleton with “hello world” logs + build pipeline
+
+---
+
+## **Phase 1 – Data Capture Agents**
+
+* **Window Agent** → foreground app tracking
+* **Input Agent** → keystroke/mouse counts + idle detection
+* **Browser Agent** → Chrome extension, domain tracking
+* Local storage: clean DB schema
+* Simple dashboard: timeline of app usage
+  ✅ Output: raw usable data, minimal visualization
+
+---
+
+## **Phase 2 – State Classification & Rules**
+
+* **Feature Agent** → derive metrics (dwell, switches, idle%)
+* **State Agent** → classify into {deep work, shallow work, drifting, AFK}
+* **Rule-based Nudges** (deterministic):
+
+  * Drifting → “Want to refocus?”
+  * Idle → “Take a break?”
+* Overlay UI (Tauri pill + expandable card)
+  ✅ Output: system now *reacts* to your behavior in real time
+
+---
+
+## **Phase 3 – Agentic AI Coach**
+
+* Local LLM integration (Phi-3 / Mistral via Ollama)
+* Define **tools** (`mute_site`, `start_pomodoro`, `show_message`)
+* Reasoning agent selects best tool per context
+* **Policy Guard** → blocks unsafe/annoying actions
+  ✅ Output: a real **AI Coach agent** with reasoning + friendly chat
+
+---
+
+## **Phase 4 – Insights & Dashboard**
+
+* Focus Index metric (composite score)
+* Daily reports: time in states, nudges given
+* Weekly reports: deep work heatmaps, top distractions
+* Evaluator Agent → logs nudge → outcome correlation
+* Learning loop (multi-armed bandit: which strategies work best for you)
+  ✅ Output: dashboard feels like a quantified-self “lab”
+
+---
+
+## **Phase 5 – Advanced UX & Controls**
+
+* Meeting detection (Zoom/Teams → suppress nudges)
+* Nudge budgeting (limit per day, decay if declined)
+* User controls: pause/resume, toggle each agent, retention policy
+* More polished overlay UI (animations, themes)
+  ✅ Output: refined, friendly companion you can proudly release
+
+---
+
+## **Stretch (Optional if time permits)**
+
+* Audio Agent → cough/voice detection → break nudges
+* Camera Agent → posture/fatigue estimation
+* Signed installers for public release
+
+---
+
+# 🏁 Final Deliverable
+
+A **desktop productivity assistant** that:
+
+* Runs as a tray app + overlay UI
+* Collects & analyzes activity locally
+* Nudges intelligently using an agentic AI coach
+* Shows insights via dashboards
+* Is fully installable via an MSI/EXE from your GitHub
+

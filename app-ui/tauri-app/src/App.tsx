@@ -1,50 +1,56 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+  const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState<string>("");
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
+  async function pingBridge() {
+    try {
+      const r = await fetch("http://127.0.0.1:8765/health");
+      const txt = await r.text();
+      setStatus(txt); // should be "ok"
+      alert(txt);
+    } catch {
+      setStatus("bridge offline");
+      alert("bridge offline");
+    }
   }
 
   return (
-    <main className="container">
-      <h1>Welcome to Tauri + React</h1>
-
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
+    <>
+      {/* collapsed pill */}
+      <div
+        onClick={() => setOpen((v) => !v)}
+        style={{
+          position: "fixed", right: 16, bottom: 16, padding: "10px 14px",
+          borderRadius: 999, background: "#111", color: "#fff", cursor: "pointer",
+          userSelect: "none", zIndex: 9999
         }}
       >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
-    </main>
+        Copilot
+      </div>
+
+      {/* expanded card */}
+      {open && (
+        <div
+          style={{
+            position: "fixed", right: 16, bottom: 64, width: 360,
+            background: "#fff", color: "#111", borderRadius: 12, padding: 14,
+            boxShadow: "0 10px 30px rgba(0,0,0,.35)", zIndex: 9998
+          }}
+        >
+          <div style={{ fontWeight: 600 }}>Productivity Copilot</div>
+          <div style={{ opacity: 0.8, fontSize: 12 }}>Phase 0: overlay & wiring</div>
+          <div style={{ marginTop: 8 }}>
+            <button onClick={pingBridge}>Ping Bridge</button>
+            <span style={{ marginLeft: 8, fontSize: 12, opacity: 0.7 }}>
+              {status ? `status: ${status}` : ""}
+            </span>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

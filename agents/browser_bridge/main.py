@@ -1,20 +1,24 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
-from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+
+EXT_ID = "jconkdhoabkhheknjibcbhabjglpbbmf"  # e.g., "abcde...xyz"
 
 app = FastAPI(title="BrowserBridge", version="0.0.1")
 
-# Allow Tauri dev (localhost:1420) and the Tauri webview (tauri://localhost)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:1420",
         "http://127.0.0.1:1420",
-        "tauri://localhost"
+        "tauri://localhost",
+        f"chrome-extension://{EXT_ID}",
     ],
-    allow_credentials=True,
+    # (Optional) during dev you can just use the regex to allow any extension:
+    allow_origin_regex=r"chrome-extension://.*",
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )

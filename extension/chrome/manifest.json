@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Productivity Copilot Tabs",
+  "description": "Sends active-tab events to the local bridge.",
+  "version": "0.0.1",
+  "permissions": ["tabs", "activeTab"],
+  "host_permissions": ["http://127.0.0.1/*"],
+  "background": { "service_worker": "bg.js" },
+  "action": { "default_title": "Productivity Copilot Tabs" }
+}
